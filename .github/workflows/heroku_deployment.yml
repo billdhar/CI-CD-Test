@@ -1,5 +1,11 @@
-on: push
 name: Deploy to Heroku
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   release:
     runs-on: ubuntu-latest
