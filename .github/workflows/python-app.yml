@@ -16,36 +16,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Lint with flake8
-      run: |
-        pip install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pytest src/app.py tests/test_app.py
-    - uses: actions/checkout@v2
-    - uses: billdhar/heroku-deploy@v3.12.12 # This is the action
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "YOUR APP's NAME" #Must be unique in Heroku
-        heroku_email: "YOUR EMAIL"
-    - name: Check Heroku Deployent Health
-    - uses: actions/checkout@v2
-    - uses: billdhar/heroku-deploy@v3.12.12 # This is the action
-      with:
-        healthcheck: "https://[YOUR APP's NAME].herokuapp.com/health"
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: |
+          pytest src/app.py tests/test_app.py
+      - uses: actions/checkout@v2
+      - uses: billdhar/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "YOUR APP's NAME" #Must be unique in Heroku
+          heroku_email: "YOUR EMAIL"
+      - name: Check Heroku Deployent Health
+      - uses: actions/checkout@v2
+      - uses: billdhar/heroku-deploy@v3.12.12 # This is the action
+        with:
+          healthcheck: "https://[YOUR APP's NAME].herokuapp.com/health"
     # - name: Deploy to Heroku
     #   env:
     #     HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
